@@ -1,14 +1,14 @@
 import string
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
+from deep_translator import GoogleTranslator
 from langdetect import detect
-from googletrans import Translator
 
 nltk.download('vader_lexicon')
 nltk.download('punkt')
 
 sid = SentimentIntensityAnalyzer()
-translator = Translator()
+
 
 MORSE_DICT = {
     'a': "._", 'b': "_...", 'c': "_._.", 'd': "_..", 'e': ".", 'f': ".._.",
@@ -54,6 +54,8 @@ def sentiment_analyzer(paragraph, threshold=0.5):
 def to_morse(text):
     return ' '.join(MORSE_DICT.get(char, '') for char in text.lower())
 
+
+
 def detect_language(text):
     try:
         return detect(text)
@@ -62,12 +64,11 @@ def detect_language(text):
 
 def translate_text(text, target_lang='en'):
     try:
-        translated = translator.translate(text, dest=target_lang)
+        translated = GoogleTranslator(source='auto', target=target_lang).translate(text)
         return {
-            'translated_text': translated.text,
-            'src_lang': translated.src,
-            'target_lang': translated.dest
+            'translated_text': translated,
+            'src_lang': detect_language(text),
+            'target_lang': target_lang
         }
     except Exception as e:
         return {'error': str(e)}
-
