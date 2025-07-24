@@ -1,11 +1,14 @@
 import string
-from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import nltk
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+from langdetect import detect
+from googletrans import Translator
 
 nltk.download('vader_lexicon')
 nltk.download('punkt')
 
 sid = SentimentIntensityAnalyzer()
+translator = Translator()
 
 MORSE_DICT = {
     'a': "._", 'b': "_...", 'c': "_._.", 'd': "_..", 'e': ".", 'f': ".._.",
@@ -18,7 +21,7 @@ MORSE_DICT = {
 def clean_text(text):
     text = text.translate(str.maketrans('', '', string.punctuation))
     sentences = nltk.sent_tokenize(text)
-    sentences = [s[0].upper() + s[1:] for s in sentences]
+    sentences = [s[0].upper() + s[1:] if len(s) > 1 else s.upper() for s in sentences]
     return ' '.join(sentences)
 
 def sentiment_analyzer(paragraph, threshold=0.5):
@@ -50,4 +53,21 @@ def sentiment_analyzer(paragraph, threshold=0.5):
 
 def to_morse(text):
     return ' '.join(MORSE_DICT.get(char, '') for char in text.lower())
+
+def detect_language(text):
+    try:
+        return detect(text)
+    except:
+        return "unknown"
+
+def translate_text(text, target_lang='en'):
+    try:
+        translated = translator.translate(text, dest=target_lang)
+        return {
+            'translated_text': translated.text,
+            'src_lang': translated.src,
+            'target_lang': translated.dest
+        }
+    except Exception as e:
+        return {'error': str(e)}
 
