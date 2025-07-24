@@ -19,34 +19,55 @@ HTML_STATUS_PAGE = """
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sentiment & Morse API</title>
+    <title>Sentilizer API</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: #121212;
-            color: #f8f8f8;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f172a;
+            color: #f1f5f9;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
         }
-        .status {
-            font-size: 1.5rem;
-            background: #1e1e1e;
-            padding: 1.5rem 2rem;
-            border: 1px solid #333;
-            border-radius: 10px;
-            box-shadow: 0 0 10px #0f0;
+        .container {
+            background: #1e293b;
+            padding: 2rem 3rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        h1 {
+            font-size: 2rem;
+            color: #38bdf8;
+            margin-bottom: 0.5rem;
+        }
+        p {
+            font-size: 1rem;
+            margin: 0.5rem 0;
+        }
+        code {
+            background-color: #334155;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
-    <div class="status">
-        ✅ Sentiment & Morse API is running!<br>
-        <small>Endpoints: <code>/analyze</code>, <code>/morse</code>, <code>/save</code>,
-        <code>/clean</code>, <code>/summary</code>, <code>/analyze_all</code>,
-        <code>/translate</code></small>
+    <div class="container">
+        <h1>✅ Sentilizer API is Live</h1>
+        <p>Available Endpoints:</p>
+        <p>
+            <code>/analyze</code> &middot; 
+            <code>/morse</code> &middot; 
+            <code>/save</code> &middot; 
+            <code>/clean</code> &middot; 
+            <code>/summary</code> &middot; 
+            <code>/analyze_all</code> &middot;
+            <code>/translate</code>
+        </p>
     </div>
 </body>
 </html>
